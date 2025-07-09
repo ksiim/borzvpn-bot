@@ -1,7 +1,7 @@
 import asyncio
 
 from aiogram.types import (
-    Message, CallbackQuery, FSInputFile
+    Message, CallbackQuery
 )
 from aiogram import F
 
@@ -74,19 +74,26 @@ async def process_successful_payment(callback: CallbackQuery, payment):
         await add_user_config(callback.from_user.id)
     
     await callback.message.answer(
-        text=f"Благодарим за покупку! Ваша подписка активна до {user.end_of_subscription.strftime('%d.%m.%Y')}",
-        reply_markup=main_menu_markup
+        text=f"Благодарим за покупку! Ваша подписка активна до {user.end_of_subscription.strftime('%d.%m.%Y')}\n\nВыберите более удобный для вас вариант подключения",
+        reply_markup=type_of_connection_markup
     )
 
     return answer
 
 async def add_user_config(telegram_id):
-    wg = WireGuard()
     user = await Orm.get_user_by_telegram_id(telegram_id)
-    path, public_key = wg.create_user_config(user)
-    await Orm.update_public_key(user.id, public_key)
-    file = FSInputFile(path=path)
-    await bot.send_document(
-        chat_id=telegram_id,
-        document=file
-    )
+    async with WireGuard() as wg:
+        # Создаем клиента (в ответе будет только {"success": true})
+        await wg.create_client(user.telegram_id)
+        
+        # Получаем список клиентов и ищем нужного по имени (telegram_id)
+        clients = await wg.get_clients()
+        client = next((c for c in clients if c["name"] == str(user.telegram_id)), None)
+        if not client:
+            raise Exception("Не удалось найти созданного клиента после create_client")
+        
+        # Включаем клиента
+        await wg.enable_client(client["id"])
+
+    # Сохраняем client_id в БД
+    await Orm.update_client_id(user.telegram_id, client["id"])

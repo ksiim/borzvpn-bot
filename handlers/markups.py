@@ -5,27 +5,31 @@ from .callbacks import *
 
 
 prices = {
-    3: 100,
-    6: 200,
-    12: 400
+    6: 599,
+    12: 1111
 }
 
-help_photo = 'AgACAgIAAxkBAAMRaGTxaTpxfmzzHCST3XgVR82pkUYAAgvxMRvz2ShLcdYHnygF1AABAQADAgADeAADNgQ'
-start_photo = 'AgACAgIAAxkBAAMRaGTxaTpxfmzzHCST3XgVR82pkUYAAgvxMRvz2ShLcdYHnygF1AABAQADAgADeAADNgQ'
+start_photo = 'AgACAgIAAxkBAANYaGV5HF3BvEAYsAdUgKNfDzCKA5MAArf3MRsryDBL-Y55BCvlqDcBAAMCAAN5AAM2BA'
 
-choose_type_of_subscription_text = """1️⃣ Выбери нужный тариф ниже👇🏻
+choose_type_of_subscription_text = """<b>1️⃣ Выбери нужный тариф ниже👇🏻
 2️⃣ Произведи оплату
-3️⃣ Установи VPN на свое устройство 
+3️⃣ Установи VPN на свое устройство </b>
 
 ❗️После оплаты выдадим приложение, которое доступно для установки на Iphone, Android, ПК, macOs
 
 💡Доступ выдается на телефон, компьютер, планшет и телевизор AndroidTV"""
 
-help_text = """Для работы VPN необходимо скачать WireGuard приложение из Google Play / App Store, также приложение есть на ПК.
+help_text = """<b>1)Для работы VPN необходимо скачать приложение WireGuard💚</b>
+Оно есть: 
+App Store 
+Google play 
+А также на ПК
 
-Открыть приложение WireGuard и нажать кнопку «+», далее «импорт из файла или архива» выбрать ранее полученный файл от бота после покупки подписки. Для выключения или включения VPN нажимайте на ползунок.
-
-При возникновении проблем свяжитесь с поддержкой"""
+2)Открыть приложение WireGuard и нажать кнопку «+», далее кнопка (по середине) 
+<b>Создать из QR-кода 
+Открываете оплаченный и полученный  вами QR-код 
+Вкл/выкл в настройках телефона</b>
+"""
 
 async def generate_start_text(message):
     return f"Чем могу помочь?"
@@ -43,7 +47,7 @@ async def generate_payment_keyboard(payment_link: str, payment_id: str, type_=No
         inline_keyboard=[
             [
                 InlineKeyboardButton(
-                    text="Оплатить",
+                    text="Оплатить 💳",
                     url=payment_link,
                 ),
             ],
@@ -56,35 +60,50 @@ async def generate_payment_keyboard(payment_link: str, payment_id: str, type_=No
             [
                 InlineKeyboardButton(
                     text="Назад",
-                    callback_data=f"{type_}_vpn"
+                    callback_data=f"buy_vpn"
                 )
             ]
         ]
     )
+    
+conf_ios_video = 'BAACAgIAAxkBAAIBrmhucP0a-KmW2nGqTK-HepBPTT6RAAJydAACFM14S2Z0cbe_Me0QNgQ'
+qr_ios_video = 'BAACAgIAAxkBAAIBsGhucRMCOjWEMFEp7GZt4ctYDK5nAAJ2dAACFM14Swe0rBGAM-AtNgQ'
+
+
+type_of_connection_markup = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [InlineKeyboardButton(
+            text="QR-код",
+            callback_data="contype_qr"
+        )],
+        [InlineKeyboardButton(
+            text="Файл конфигурации",
+            callback_data="contype_config"
+        )]
+    ]
+)
+
+qr_connection_text = 'Вот инструкция по подключению к VPN через QR-код'
+config_connection_text = 'Вот инструкция по подключению к VPN через файл конфигурации'
+
 
 choose_type_of_subscription_markup = InlineKeyboardMarkup(
     inline_keyboard=[
         [
             InlineKeyboardButton(
-                text=f'🟢3 мес - {prices[3]}р',
-                callback_data='buy_vpn_:3'
-            )
-        ],
-        [
-            InlineKeyboardButton(
-                text=f'🔵6 мес - {prices[6]}р',
+                text=f'6 месяцев - {prices[6]}р💚',
                 callback_data='buy_vpn_:6'
             )
         ],
         [
             InlineKeyboardButton(
-                text=f'🟣12 мес - {prices[12]}р',
+                text=f'12 месяцев - {prices[12]}р💚',
                 callback_data='buy_vpn_:12'
             )
         ],
         [
             InlineKeyboardButton(
-                text='🛡Главное меню',
+                text='Главное меню🛡',
                 callback_data='main_menu'
             )
         ]
@@ -96,13 +115,19 @@ start_markup = InlineKeyboardMarkup(
     inline_keyboard=[
         [
             InlineKeyboardButton(
-                text="🔌Купить\продлить подписку VPN ",
+                text="Купить подписку VPN💚 ",
                 callback_data='buy_vpn'
             )
         ],
         [
             InlineKeyboardButton(
-                text='🛟Помощь',
+                text="Продлить подписку VPN🔋",
+                callback_data='buy_vpn'
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                text='Помощь 📲',
                 callback_data='help'
             )
         ],
@@ -115,11 +140,28 @@ start_markup = InlineKeyboardMarkup(
     ]
 )
 
+help_markup = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [
+            InlineKeyboardButton(
+                text='Поддержка',
+                url='t.me/TurboOpel'
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                text='Главное меню🛡',
+                callback_data='main_menu'
+            )
+        ]
+    ]
+)
+
 main_menu_markup = InlineKeyboardMarkup(
     inline_keyboard=[
         [
             InlineKeyboardButton(
-                text='🛡Главное меню',
+                text='Главное меню🛡',
                 callback_data='main_menu'
             )
         ]

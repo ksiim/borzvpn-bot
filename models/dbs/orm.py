@@ -71,12 +71,12 @@ class Orm:
         return result
     
     @staticmethod
-    async def update_public_key(user_id, public_key):
+    async def update_client_id(telegram_id, client_id):
         async with Session() as session:
             query = (
                 update(User)
-                .where(User.id == user_id)
-                .values(public_key=public_key)
+                .where(User.telegram_id == telegram_id)
+                .values(client_id=client_id)
             )
             await session.execute(query)
             await session.commit()
