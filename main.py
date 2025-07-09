@@ -22,7 +22,7 @@ async def main():
 def initialize_scheduler():
     scheduler = AsyncIOScheduler()
     # scheduler.add_job(delete_unsubscribed_people, 'cron', hour=0)
-    # scheduler.add_job(delete_unsubscribed_people, 'interval', seconds=10)
+    scheduler.add_job(delete_unsubscribed_people, 'interval', seconds=10)
     scheduler.start()
 
 async def main():

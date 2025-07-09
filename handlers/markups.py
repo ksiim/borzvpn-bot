@@ -73,7 +73,7 @@ qr_ios_video = 'BAACAgIAAxkBAAIBsGhucRMCOjWEMFEp7GZt4ctYDK5nAAJ2dAACFM14Swe0rBGA
 type_of_connection_markup = InlineKeyboardMarkup(
     inline_keyboard=[
         [InlineKeyboardButton(
-            text="QR-код",
+            text="QR-код (для доп. устройств)",
             callback_data="contype_qr"
         )],
         [InlineKeyboardButton(
