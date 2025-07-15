@@ -111,6 +111,10 @@ async def connection_type_handler(callback: CallbackQuery):
             await proccess_qr_code_connection(callback.from_user.id)
         case 'config':
             await proccess_config_connection(callback.from_user.id)
+            
+    await callback.message.answer(
+        text='Приятного использования VPN! 💚',
+    )
     
     
 async def proccess_qr_code_connection(telegram_id: int) -> str:
