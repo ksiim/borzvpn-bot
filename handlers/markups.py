@@ -5,6 +5,7 @@ from .callbacks import *
 
 
 prices = {
+    1: 199,
     6: 599,
     12: 1111
 }
@@ -77,7 +78,7 @@ type_of_connection_markup = InlineKeyboardMarkup(
             callback_data="contype_qr"
         )],
         [InlineKeyboardButton(
-            text="Файл конфигурации",
+            text="Файл конфигурации (на ваше устройство)",
             callback_data="contype_config"
         )]
     ]
@@ -89,6 +90,12 @@ config_connection_text = 'Вот инструкция по подключени�
 
 choose_type_of_subscription_markup = InlineKeyboardMarkup(
     inline_keyboard=[
+        [
+            InlineKeyboardButton(
+                text=f'1 месяц - {prices[1]}р💚',
+                callback_data='buy_vpn_:1'
+            )
+        ],
         [
             InlineKeyboardButton(
                 text=f'6 месяцев - {prices[6]}р💚',
