@@ -18,10 +18,10 @@ async def disconnect_user(user: User, wg: WireGuard):
     await wg.delete_client(user.client_id)
     await bot.send_message(
         chat_id=user.telegram_id,
-        text=f"Ваш VPN был отключен, так как срок подписки истек. "
-             f"Если вы хотите продолжить пользоваться VPN, "
-             f"вы можете <b>подписаться</b> на него."
-             f"ждем вас снова - BORZ VPN 💚",
+        text="Ваш VPN был отключен, так как срок подписки истек. "
+             "Если вы хотите продолжить пользоваться VPN, "
+             "вы можете <b>подписаться</b> на него."
+             "ждем вас снова - BORZ VPN 💚",
         parse_mode='HTML',
         reply_markup=main_menu_markup
     )

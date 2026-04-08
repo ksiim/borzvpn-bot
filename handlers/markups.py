@@ -5,9 +5,9 @@ from .callbacks import *
 
 
 prices = {
-    1: 199,
-    6: 599,
-    12: 1111
+    1: 499,
+    6: 1999,
+    12: 3999
 }
 
 start_photo = 'AgACAgIAAxkBAANYaGV5HF3BvEAYsAdUgKNfDzCKA5MAArf3MRsryDBL-Y55BCvlqDcBAAMCAAN5AAM2BA'
@@ -33,7 +33,7 @@ Google play
 """
 
 async def generate_start_text(message):
-    return f"Чем могу помочь?"
+    return "Чем могу помочь?"
 
 async def incline_by_period(period):
     if period == 1:

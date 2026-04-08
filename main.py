@@ -9,7 +9,6 @@ import handlers
 from models.databases import create_database
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from utils.tasks import delete_unsubscribed_people
-from utils.wireguard import WireGuard
 
 
 logging.basicConfig(level=logging.INFO)
