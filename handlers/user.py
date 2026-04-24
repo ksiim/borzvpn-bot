@@ -179,5 +179,5 @@ async def send_mail_to_everyone(message: Message, command: CommandObject):
     mail_service = get_mail_service()
     await mail_service.send_mail_to_ids(
         command.args,
-        (user.id for user in await Orm.get_all_users()),
+        (user.telegram_id for user in await Orm.get_all_users()),
     )
