@@ -1,16 +1,17 @@
 from aiogram import F
+from aiogram.filters import CommandObject
 from aiogram.filters.command import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import (
     Message, CallbackQuery, FSInputFile, BufferedInputFile
 )
 import cairosvg
-from sqlalchemy import delete
 
 from bot import dp, bot
 
 from models.dbs.orm import Orm
 from models.dbs.models import *
+from utils.mail_service import get_mail_service
 from utils.wireguard import WireGuard
 
 from .callbacks import *
@@ -172,3 +173,11 @@ async def proccess_config_connection(telegram_id: int) -> str:
 #     user = await Orm.get_user_by_telegram_id(message.from_user.id)
 #     user_public_key = user.public_key
 #     wg.remove_peer_from_server_config(user_public_key)
+
+@dp.message(Command('mail'))
+async def send_mail_to_everyone(message: Message, command: CommandObject):
+    mail_service = get_mail_service()
+    await mail_service.send_mail_to_ids(
+        command.args,
+        (user.id for user in await Orm.get_all_users()),
+    )

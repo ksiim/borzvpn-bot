@@ -8,6 +8,7 @@ prices = {
     1: 299,
     6: 799,
     12: 1499,
+    24: 1499,
 }
 
 start_photo = 'AgACAgIAAxkBAANYaGV5HF3BvEAYsAdUgKNfDzCKA5MAArf3MRsryDBL-Y55BCvlqDcBAAMCAAN5AAM2BA'
@@ -104,8 +105,14 @@ choose_type_of_subscription_markup = InlineKeyboardMarkup(
         ],
         [
             InlineKeyboardButton(
-                text=f'12 месяцев - {prices[12]}р💚',
+                text=f'Год - {prices[12]}р💚',
                 callback_data='buy_vpn_:12'
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                text=f'Навсегда - {prices[24]}р💚',
+                callback_data='buy_vpn_:24'
             )
         ],
         [
