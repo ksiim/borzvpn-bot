@@ -1,5 +1,6 @@
 import asyncio
 from functools import lru_cache
+import logging
 from typing import Iterable
 
 from aiogram import Bot
@@ -22,6 +23,7 @@ class MailService:
 
     async def send_mail(self, text: str, telegram_id: int) -> bool:
         try:
+            logging.info(f"sended mail to {telegram_id}")
             await self._bot.send_message(telegram_id, text)
             return True
         except Exception as exc:
