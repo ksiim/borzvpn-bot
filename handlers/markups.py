@@ -6,9 +6,9 @@ from .callbacks import *
 
 prices = {
     1: 299,
-    6: 799,
-    12: 1499,
-    24: 1499,
+    6: 999,
+    12: 1699,
+    24: 3999,
 }
 
 start_photo = 'AgACAgIAAxkBAANYaGV5HF3BvEAYsAdUgKNfDzCKA5MAArf3MRsryDBL-Y55BCvlqDcBAAMCAAN5AAM2BA'
